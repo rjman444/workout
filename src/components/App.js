@@ -37,7 +37,6 @@ class App extends React.Component {
   };
 
   onFormSubmit = (newWorkout) => {
-    console.log(newWorkout);
     if (this.state.workoutList.includes(newWorkout.date)) {
       console.log("Bad date");
     } else {
@@ -57,7 +56,6 @@ class App extends React.Component {
   };
 
   handleDelete = (id) => {
-    console.log(id);
     axios
       .delete(`/api/workouts/${id}`)
       .then(() => {
