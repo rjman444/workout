@@ -16,7 +16,6 @@ const GreyskullA = ({ register, errors }) => {
                 type="number"
                 name="exercises.Bench Press.Weight"
                 placeholder="Weight"
-                defaultValue="4"
                 ref={register({ required: true, maxLength: 3 })}
               />
               <div className="ui basic label">kg</div>
@@ -28,7 +27,6 @@ const GreyskullA = ({ register, errors }) => {
               type="number"
               name="exercises.Bench Press.Reps"
               placeholder="AMRAP"
-              defaultValue="4"
               ref={register({ required: true, maxLength: 3 })}
             />
           </div>
@@ -49,7 +47,6 @@ const GreyskullA = ({ register, errors }) => {
                 type="number"
                 name="exercises.Row.Weight"
                 placeholder="Weight"
-                defaultValue="4"
                 ref={register({ required: true, maxLength: 3 })}
               />
               <div className="ui basic label">kg</div>
@@ -61,7 +58,6 @@ const GreyskullA = ({ register, errors }) => {
               type="number"
               name="exercises.Row.Reps"
               placeholder="AMRAP"
-              defaultValue="4"
               ref={register({ required: true, maxLength: 3 })}
             />
           </div>
@@ -81,7 +77,6 @@ const GreyskullA = ({ register, errors }) => {
                 type="number"
                 name="exercises.Squat.Weight"
                 placeholder="Weight"
-                defaultValue="4"
                 ref={register({ required: true, maxLength: 3 })}
               />
               <div className="ui basic label">kg</div>
@@ -93,7 +88,6 @@ const GreyskullA = ({ register, errors }) => {
               type="number"
               name="exercises.Squat.Reps"
               placeholder="AMRAP"
-              defaultValue="4"
               ref={register({ required: true, maxLength: 3 })}
             />
           </div>

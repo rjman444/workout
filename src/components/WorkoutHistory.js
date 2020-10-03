@@ -30,7 +30,7 @@ class WorkoutHistory extends React.Component {
       return (
         <>
           <h3 className="ui header">{this.renderDate(w.date)}</h3>
-          <table className="ui celled fixed table">
+          <table className="ui celled fixed unstackable striped table">
             <thead>
               <tr>
                 <th>Exercise</th>
@@ -52,7 +52,7 @@ class WorkoutHistory extends React.Component {
           </table>
           <button
             className="ui button negative"
-            onClick={() => this.props.handleDelete(w._id)}
+            onClick={() => this.props.handleDelete(w.date)}
           >
             Delete
           </button>

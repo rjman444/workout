@@ -10,26 +10,25 @@ class App extends React.Component {
     selectedWorkout: "",
   };
 
-  getWorkouts() {
+  componentDidMount() {
     axios
       .get("/api/workouts")
       .then((workouts) => {
+        console.log(workouts);
         let wlist = [];
+        let wk = [];
         workouts.data.forEach((w) => {
+          wk.push({ date: w.date, workout: w.workout, exercises: w.exercises });
           wlist.push(w.date);
         });
 
         this.setState({
-          workouts: workouts.data,
+          workouts: wk,
           workoutList: wlist,
           selectedWorkout: wlist[wlist.length - 1],
         });
       })
       .catch((err) => console.log(err));
-  }
-
-  componentDidMount() {
-    this.getWorkouts();
   }
 
   handleDropdownChange = (e) => {
@@ -38,7 +37,7 @@ class App extends React.Component {
 
   onFormSubmit = (newWorkout) => {
     if (this.state.workoutList.includes(newWorkout.date)) {
-      console.log("Bad date");
+      alert("Workout already exists on this date");
     } else {
       axios
         .post("/api/workouts", {
@@ -47,7 +46,11 @@ class App extends React.Component {
           exercises: newWorkout.exercises,
         })
         .then(() => {
-          this.getWorkouts();
+          this.setState({
+            workouts: [...this.state.workouts, newWorkout],
+            workoutList: [...this.state.workoutList, newWorkout.date],
+            selectedWorkout: newWorkout.date,
+          });
         })
         .catch((err) => {
           alert("Could not add workout");
@@ -55,12 +58,17 @@ class App extends React.Component {
     }
   };
 
-  handleDelete = (id) => {
+  handleDelete = (date) => {
     axios
-      .delete(`/api/workouts/${id}`)
+      .delete(`/api/workouts/${date}`)
       .then(() => {
-        // alert("workout deleted succesfully");
-        this.getWorkouts();
+        let newWorkouts = this.state.workouts.filter((w) => w.date !== date);
+        let newWorkoutList = this.state.workoutList.filter((w) => w !== date);
+        this.setState({
+          workouts: newWorkouts,
+          workoutList: newWorkoutList,
+          selectedWorkout: newWorkoutList[newWorkoutList.length - 1] || "",
+        });
       })
       .catch((err) => console.log(err));
   };
@@ -71,15 +79,15 @@ class App extends React.Component {
         <div className="ui container">
           <h1 className="ui header">Workout Tracker</h1>
         </div>
-        <div className="ui two column grid container">
-          <div className="column">
+        <div className="ui container">
+          <div className="ui container">
             <WorkoutForm
               onFormSubmit={this.onFormSubmit}
               workoutList={this.state.workoutList}
             />
           </div>
 
-          <div className="column">
+          <div className="ui container">
             <WorkoutHistory
               workouts={this.state.workouts}
               workoutList={this.state.workoutList}

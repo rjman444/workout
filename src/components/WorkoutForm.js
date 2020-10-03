@@ -21,18 +21,18 @@ const WorkoutForm = ({ onFormSubmit }) => {
       <div className="field">
         <label>Select Workout</label>
         <select className="ui dropdown" name="workout" ref={register}>
-          <option value="A">A</option>
-          <option value="B">B</option>
+          <option value="Greyskull LP A">Greyskull LP A</option>
+          <option value="Greyskull LP B">Greyskull LP B</option>
         </select>
       </div>
 
       {/* Different Forms */}
 
-      {watchWorkout === "A" && (
+      {watchWorkout === "Greyskull LP A" && (
         <GreyskullA register={register} errors={errors} />
       )}
 
-      {watchWorkout === "B" && (
+      {watchWorkout === "Greyskull LP B" && (
         <GreyskullB register={register} errors={errors} />
       )}
 

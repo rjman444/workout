@@ -15,8 +15,8 @@ router.get("/:id", (req, res) => {
     .catch((error) => console.log(error));
 });
 
-router.delete("/:id", (req, res) => {
-  Workout.deleteOne({ _id: req.params.id })
+router.delete("/:date", (req, res) => {
+  Workout.deleteOne({ date: req.params.date })
     .then(() => res.json({ message: "Deleted workout" }))
     .catch((error) => console.log(error));
 });
