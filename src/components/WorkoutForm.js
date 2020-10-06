@@ -6,7 +6,7 @@ import GreyskullB from "./forms/GreyskullB";
 const WorkoutForm = ({ onFormSubmit }) => {
   const { register, watch, errors, handleSubmit } = useForm();
 
-  const watchWorkout = watch("workout", "A");
+  const watchWorkout = watch("workout", "Greyskull LP A");
 
   const onSubmit = onFormSubmit;
 

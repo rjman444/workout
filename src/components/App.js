@@ -14,7 +14,6 @@ class App extends React.Component {
     axios
       .get("/api/workouts")
       .then((workouts) => {
-        console.log(workouts);
         let wlist = [];
         let wk = [];
         workouts.data.forEach((w) => {
@@ -80,22 +79,18 @@ class App extends React.Component {
           <h1 className="ui header">Workout Tracker</h1>
         </div>
         <div className="ui container">
-          <div className="ui container">
-            <WorkoutForm
-              onFormSubmit={this.onFormSubmit}
-              workoutList={this.state.workoutList}
-            />
-          </div>
+          <WorkoutForm
+            onFormSubmit={this.onFormSubmit}
+            workoutList={this.state.workoutList}
+          />
 
-          <div className="ui container">
-            <WorkoutHistory
-              workouts={this.state.workouts}
-              workoutList={this.state.workoutList}
-              selectedWorkout={this.state.selectedWorkout}
-              handleDropdownChange={this.handleDropdownChange}
-              handleDelete={this.handleDelete}
-            />
-          </div>
+          <WorkoutHistory
+            workouts={this.state.workouts}
+            workoutList={this.state.workoutList}
+            selectedWorkout={this.state.selectedWorkout}
+            handleDropdownChange={this.handleDropdownChange}
+            handleDelete={this.handleDelete}
+          />
         </div>
       </>
     );

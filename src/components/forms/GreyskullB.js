@@ -13,10 +13,11 @@ const GreyskullB = ({ register, errors }) => {
           <div className="eight wide field">
             <div className="ui right labeled input">
               <input
+                step="0.5"
                 type="number"
                 name="exercises.Overhead Press.Weight"
                 placeholder="Weight"
-                ref={register({ required: true, maxLength: 3 })}
+                ref={register({ required: true, maxLength: 5 })}
               />
               <div className="ui basic label">kg</div>
             </div>
@@ -27,7 +28,7 @@ const GreyskullB = ({ register, errors }) => {
               type="number"
               name="exercises.Overhead Press.Reps"
               placeholder="AMRAP"
-              ref={register({ required: true, maxLength: 3 })}
+              ref={register({ required: true, maxLength: 1 })}
             />
           </div>
         </div>
@@ -35,7 +36,7 @@ const GreyskullB = ({ register, errors }) => {
 
       <div
         className={`field ${
-          errors.exercises && errors.exercises.pullup ? "error" : ""
+          errors.exercises && errors.exercises.Pullup ? "error" : ""
         }  `}
       >
         <label>Pullup</label>
@@ -44,9 +45,10 @@ const GreyskullB = ({ register, errors }) => {
             <div className="ui right labeled input">
               <input
                 type="number"
-                name="exercises.pullup.Weight"
+                name="exercises.Pullup.Weight"
+                step="0.5"
                 placeholder="Weight"
-                ref={register({ required: true, maxLength: 3 })}
+                ref={register({ required: true, maxLength: 5 })}
               />
               <div className="ui basic label">kg</div>
             </div>
@@ -55,9 +57,9 @@ const GreyskullB = ({ register, errors }) => {
           <div className="eight wide field">
             <input
               type="number"
-              name="exercises.pullup.Reps"
+              name="exercises.Pullup.Reps"
               placeholder="AMRAP"
-              ref={register({ required: true, maxLength: 3 })}
+              ref={register({ required: true, maxLength: 2 })}
             />
           </div>
         </div>
@@ -74,9 +76,10 @@ const GreyskullB = ({ register, errors }) => {
             <div className="ui right labeled input">
               <input
                 type="number"
+                step="0.5"
                 name="exercises.Deadlift.Weight"
                 placeholder="Weight"
-                ref={register({ required: true, maxLength: 3 })}
+                ref={register({ required: true, maxLength: 5 })}
               />
               <div className="ui basic label">kg</div>
             </div>
@@ -87,7 +90,7 @@ const GreyskullB = ({ register, errors }) => {
               type="number"
               name="exercises.Deadlift.Reps"
               placeholder="AMRAP"
-              ref={register({ required: true, maxLength: 3 })}
+              ref={register({ required: true, maxLength: 2 })}
             />
           </div>
         </div>
