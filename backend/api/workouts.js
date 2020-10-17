@@ -1,8 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { checkJwt } = require("../util");
+const { checkJwt, attachUser } = require("../util");
 
 const Workout = require("../models/workout");
+
+router.use(checkJwt);
+router.use(attachUser);
 
 router.get("/", async (req, res) => {
   try {
