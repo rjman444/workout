@@ -1,16 +1,19 @@
 import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { Redirect } from "react-router";
+import { Redirect, Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
 const LoginForm = ({ onFormSubmit }) => {
   const authContext = useContext(AuthContext);
   const [redirectOnSignup, setRedirect] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const [Error, setError] = useState();
   const { register, errors, handleSubmit } = useForm();
 
   const onSubmit = async ({ username, password }) => {
     try {
+      setLoading(true);
       const { data } = await axios.post("/api/users/login", {
         username,
         password,
@@ -18,8 +21,10 @@ const LoginForm = ({ onFormSubmit }) => {
 
       authContext.setAuthState(data);
       setRedirect(true);
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      setLoading(false);
+      const { data } = error.response;
+      setError(data.message);
     }
   };
 
@@ -27,29 +32,51 @@ const LoginForm = ({ onFormSubmit }) => {
     <>
       {redirectOnSignup && <Redirect to="/tracker" />}
       <div className="ui container">
-        <h1 className="header">Login</h1>
-        <form className="ui form" onSubmit={handleSubmit(onSubmit)}>
-          <div className={`field ${errors.username ? "error" : ""}  `}>
-            <label>Username</label>
-            <input
-              type="text"
-              name="username"
-              ref={register({ required: true })}
-            />
-          </div>
-          <div className={`field ${errors.password ? "error" : ""}  `}>
-            <label>Password</label>
-            <input
-              type="text"
-              name="password"
-              ref={register({ required: true })}
-            />
-          </div>
+        {authContext.isAuthenticated() && (
+          <>
+            <h1 className="ui header">{`Logged in as user ${authContext.authState.userInfo.username} `}</h1>
+            <Link to="/tracker">Go to Tracker</Link>
+          </>
+        )}
 
-          <button className="ui button" type="submit">
-            Submit
-          </button>
-        </form>
+        {!authContext.isAuthenticated() && (
+          <>
+            <h1 className="header">Login</h1>
+            <form
+              className={`ui form ${isLoading ? "loading" : ""} ${
+                Error ? "error" : ""
+              }`}
+              onSubmit={handleSubmit(onSubmit)}
+              autoComplete="off"
+            >
+              <div className={`field ${errors.username ? "error" : ""}  `}>
+                <label>Username</label>
+                <input
+                  type="text"
+                  name="username"
+                  ref={register({ required: true })}
+                />
+              </div>
+              <div className={`field ${errors.password ? "error" : ""}  `}>
+                <label>Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  ref={register({ required: true })}
+                />
+              </div>
+
+              <div class="ui error message">
+                <div class="header">Something went wrong...</div>
+                <p>{Error}</p>
+              </div>
+
+              <button className="ui button" type="submit">
+                Submit
+              </button>
+            </form>
+          </>
+        )}
       </div>
     </>
   );

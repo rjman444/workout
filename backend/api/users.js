@@ -35,7 +35,7 @@ router.post("/signup", async (req, res) => {
       const token = createToken(savedUser);
       const decodedToken = jwtDecode(token);
       const expiresAt = decodedToken.exp;
-      const { password, ...rest } = savedUser;
+      const { password, ...rest } = savedUser._doc;
       const userInfo = Object.assign({}, { ...rest });
 
       return res.json({
@@ -67,7 +67,7 @@ router.post("/login", async (req, res) => {
 
   if (!user) {
     return res.status(403).json({
-      message: "Wrong username.",
+      message: "Wrong username",
       username: req.body,
       password,
     });
@@ -84,6 +84,10 @@ router.post("/login", async (req, res) => {
     const decodedToken = jwtDecode(token);
     const expiresAt = decodedToken.exp;
 
+    res.cookie("token", token, {
+      httpOnly: true,
+    });
+
     res.json({
       message: "Authentication successful!",
       token,
@@ -92,7 +96,7 @@ router.post("/login", async (req, res) => {
     });
   } else {
     res.status(403).json({
-      message: "Wrong username or password.",
+      message: "Wrong username or password",
     });
   }
 });
@@ -107,7 +111,7 @@ router.get("/", (req, res) => {
 
 router.delete("/:username", (req, res) => {
   User.deleteOne({ username: req.params.username })
-    .then(() => res.json({ message: "Deleted usename" }))
+    .then(() => res.json({ message: "Deleted user " + req.params.username }))
     .catch((error) => console.log(error));
 });
 
