@@ -7,6 +7,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
+    useCreateIndex: true,
     poolSize: 100,
   })
   .then(() => console.log("Database Connected Successfully"))
