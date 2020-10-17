@@ -35,11 +35,13 @@ router.post("/signup", async (req, res) => {
       const token = createToken(savedUser);
       const decodedToken = jwtDecode(token);
       const expiresAt = decodedToken.exp;
+      const { password, ...rest } = savedUser;
+      const userInfo = Object.assign({}, { ...rest });
 
       return res.json({
         message: "User created",
         token,
-        User: savedUser.username,
+        userInfo,
         expiresAt,
       });
     } else {
@@ -95,7 +97,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/", checkJwt, (req, res) => {
+router.get("/", (req, res) => {
   User.find()
     .then((users) => res.json(users))
     .catch((err) => console.log(err));
@@ -103,7 +105,7 @@ router.get("/", checkJwt, (req, res) => {
 
 // Delete User Route
 
-router.delete("/:username", checkJwt, (req, res) => {
+router.delete("/:username", (req, res) => {
   User.deleteOne({ username: req.params.username })
     .then(() => res.json({ message: "Deleted usename" }))
     .catch((error) => console.log(error));

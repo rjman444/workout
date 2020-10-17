@@ -14,10 +14,11 @@ class App extends React.Component {
   componentDidMount() {
     let axios = this.context.authAxios;
 
+    console.log(this.context.authState);
+
     axios
       .get("/api/workouts")
       .then(({ data }) => {
-        console.log(data);
         if (data.length !== 0) {
           this.setState({
             workouts: data,

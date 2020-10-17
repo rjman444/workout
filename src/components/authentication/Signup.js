@@ -15,7 +15,6 @@ const SignupForm = ({ onFormSubmit }) => {
         username,
         password,
       });
-
       authContext.setAuthState(data);
       setRedirect(true);
     } catch (err) {
