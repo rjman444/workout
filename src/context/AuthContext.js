@@ -1,7 +1,6 @@
 import Axios from "axios";
 import React, { createContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import Cookies from "universal-cookie";
 
 const AuthContext = createContext();
 const { Provider } = AuthContext;
