@@ -66,8 +66,8 @@ const LoginForm = ({ onFormSubmit }) => {
                 />
               </div>
 
-              <div class="ui error message">
-                <div class="header">Something went wrong...</div>
+              <div className="ui error message">
+                <div className="header">Something went wrong...</div>
                 <p>{Error}</p>
               </div>
 

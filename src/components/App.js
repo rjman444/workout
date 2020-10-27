@@ -4,6 +4,7 @@ import Login from "./authentication/Login";
 import Signup from "./authentication/Signup";
 import Home from "./Home";
 import { AuthContext, AuthProvider } from "../context/AuthContext";
+import { CookiesProvider } from "react-cookie";
 
 import {
   BrowserRouter as Router,
@@ -28,16 +29,18 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <AuthProvider>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            <AuthenticatedRoute>
-              <Tracker />
-            </AuthenticatedRoute>
-          </Switch>
-        </AuthProvider>
+        <CookiesProvider>
+          <AuthProvider>
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={Signup} />
+              <AuthenticatedRoute>
+                <Tracker />
+              </AuthenticatedRoute>
+            </Switch>
+          </AuthProvider>
+        </CookiesProvider>
       </Router>
     );
   }

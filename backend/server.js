@@ -1,12 +1,11 @@
 require("dotenv").config();
 const express = require("express");
-const bodyParser = require("body-parser");
 const compression = require("compression");
 const helmet = require("helmet");
 const cors = require("cors");
 const path = require("path");
 const mongoose = require("mongoose");
-
+const cookieParser = require("cookie-parser");
 const app = express();
 
 // Middleware
@@ -15,6 +14,7 @@ app.use(compression());
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors());
 app.options("*", cors());
+app.use(cookieParser());
 app.use(express.json());
 
 //APIs

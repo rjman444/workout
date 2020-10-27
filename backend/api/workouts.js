@@ -19,20 +19,20 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", checkJwt, (req, res) => {
+router.get("/:id", (req, res) => {
   Workout.find({ _id: req.params.id })
     .then((workout) => res.json(workout))
     .catch((error) => console.log(error));
 });
 
-router.delete("/:id", checkJwt, (req, res) => {
+router.delete("/:id", (req, res) => {
   const { sub } = req.user;
   Workout.findOneAndDelete({ _id: req.params.id, user: sub })
     .then(() => res.json({ message: "Deleted workout" }))
     .catch((error) => console.log(error));
 });
 
-router.post("/", checkJwt, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const { sub } = req.user;
     const { date, workout, exercises } = req.body;

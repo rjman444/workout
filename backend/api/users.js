@@ -2,12 +2,7 @@ const express = require("express");
 const router = express.Router();
 const jwtDecode = require("jwt-decode");
 const User = require("../models/user");
-const {
-  hashPassword,
-  createToken,
-  verifyPassword,
-  checkJwt,
-} = require("../util");
+const { hashPassword, createToken, verifyPassword } = require("../util");
 
 // Signup Route
 
@@ -37,6 +32,10 @@ router.post("/signup", async (req, res) => {
       const expiresAt = decodedToken.exp;
       const { password, ...rest } = savedUser._doc;
       const userInfo = Object.assign({}, { ...rest });
+
+      res.cookie("token", token, {
+        httpOnly: true,
+      });
 
       return res.json({
         message: "User created",
